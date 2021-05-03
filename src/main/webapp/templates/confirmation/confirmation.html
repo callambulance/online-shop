@@ -1,0 +1,85 @@
+<!doctype html>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+
+    <title>Codecool Shop Confirmation</title>
+
+    <script src="https://code.jquery.com/jquery-3.3.1.min.js"
+            integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
+
+    <!--Latest compiled and minified Popper -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js"
+            integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
+
+    <!-- Latest compiled and minified JavaScript -->
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/js/bootstrap.min.js"
+            integrity="sha384-B0UglyR+jN6CkvvICOB2joaf5I4l3gm9GU6Hc1og6Ls7i6U/mkkaduKaBhlAXv9k" crossorigin="anonymous"></script>
+
+    <!-- Latest compiled and minified CSS -->
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css" rel="stylesheet"
+          integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS" crossorigin="anonymous">
+    <!-- End of Bootstrap components -->
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+    <link rel="stylesheet" type="text/css" href="/static/css/custom.css" />
+    <script src="/static/js/main.js" type="text/javascript"></script>
+    <link rel='shortcut icon' type='image/x-icon' href='/static/img/ccs_favicon.ico' />
+</head>
+<body>
+
+<div id="header" class="main_view" style="height: 8rem!important;">
+    <a href="/"><img id="logo" class="ccs_logo" src="/static/img/ccs_logo.png" style="margin: auto 22%!important; transform: scale(.5)!important;"></a>
+</div>
+
+<div class="container" style="margin: 10rem auto 0;" th:unless="${order} == null">
+    <h4>Order Confirmation</h4>
+    <div class="confirmation-card">
+        <div class="progress-container">
+            <h6 th:text="'Order successfull'" style="width: 14rem;"></h6>
+            <div class="progress-bar">
+                <div class="progress-end"></div>
+            </div>
+        </div>
+        <hr />
+
+        <div th:text="'Order ID: ' + ${order.getId()}"></div>
+        <div th:text="'Order Date: ' + ${order.getDate()}"></div>
+
+        <div class="marginOneRem">
+            <h5 class="address-label" th:text="'Shipping address'"></h5>
+            <div class="marginOneRem">
+                <div th:text="'First name: ' + ${order.getCheckoutInfo().get('First name')}"></div>
+                <div th:text="'Last name: ' + ${order.getCheckoutInfo().get('Last name')}"></div>
+                <div th:text="'Email: ' + ${order.getCheckoutInfo().get('Email')}"></div>
+                <div th:text="'Phone number: ' + ${order.getCheckoutInfo().get('Phone number')}"></div>
+                <div th:text="${'Address: ' + order.getCheckoutInfo().get('Shipping zipcode') + ' ' + order.getCheckoutInfo().get('Shipping city') + ', ' + order.getCheckoutInfo().get('Shipping address')}"></div>
+            </div>
+            <h5 class="billing-label" th:text="'Billing address'"></h5>
+            <div class="marginOneRem">
+                <div th:text="${order.getCheckoutInfo().get('Billing country') + ' ' + order.getCheckoutInfo().get('Shipping zipcode') + ' ' + order.getCheckoutInfo().get('Shipping city') + ', ' + order.getCheckoutInfo().get('Shipping address')}"></div>
+            </div>
+        </div>
+
+        <h5 th:text="'Ordered products'" style="margin: 0 1rem"></h5>
+        <div class="order-products-container">
+            <div class="product-confirmation-container" th:each="product: ${order.getLineItems()}">
+                <img class="product-mini-img" th:attr="src='/static/img/product_' + ${product.getProduct().getId()} + '.jpg'">
+                <div class="product-info">
+                    <div th:text="${product.getProduct().getName()}"></div>
+                    <div th:text="'Quantity: ' + ${product.getQuantity()}"></div>
+                    <div th:text="'SubTotal: ' + ${product.getTotalPrice()} + ' USD'"></div>
+                </div>
+            </div>
+        </div>
+        <h5 th:text="'Total Price: ' + ${totalPrice} + ' USD'"></h5>
+    </div>
+
+</div>
+
+<div th:replace="footer.html :: copy"></div>
+
+</body>
+</html>

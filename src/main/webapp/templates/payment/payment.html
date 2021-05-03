@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+
+    <title>Codecool Shop Payment</title>
+
+    <script src="https://code.jquery.com/jquery-3.3.1.min.js"
+            integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
+
+    <!--Latest compiled and minified Popper -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js"
+            integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
+
+    <!-- Latest compiled and minified JavaScript -->
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/js/bootstrap.min.js"
+            integrity="sha384-B0UglyR+jN6CkvvICOB2joaf5I4l3gm9GU6Hc1og6Ls7i6U/mkkaduKaBhlAXv9k" crossorigin="anonymous"></script>
+
+    <!-- Latest compiled and minified CSS -->
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css" rel="stylesheet"
+          integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS" crossorigin="anonymous">
+    <!-- End of Bootstrap components -->
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+    <link rel="stylesheet" type="text/css" href="/static/css/payment.css" />
+    <link rel="stylesheet" type="text/css" href="/static/css/custom.css" />
+    <script src="/static/js/payment.js" type="text/javascript"></script>
+</head>
+</head>
+<body>
+<div id="header" class="main_view" style="height: 8rem!important;">
+    <a href="/"><img id="logo" class="ccs_logo" src="/static/img/ccs_logo.png" style="margin: auto 26%!important; transform: scale(.5)!important;"></a>
+</div>
+
+<div class="payment-container">
+    <div class="progress-container">
+        <h6 th:text="'Shooping Progress'" style="width: 14rem;"></h6>
+        <div class="progress-bar">
+            <div class="progress-payment"></div>
+        </div>
+    </div>
+    <hr />
+
+    <div class="payment-dropdown-container">
+        <span>Please select a payment method</span>
+        <select name="paymentmethod" id="payment-dropdown" class="dropdown-arrow" onclick="changePaymentMethod(this.id)">
+            <option value="creditcard" selected>Credit Card</option>
+            <option value="paypal" >Paypal</option>
+        </select>
+    </div>
+
+    <div id="creditcard-img">
+        <img  class="custom-img-payment" src='/static/img/creditcard.png' alt="Credit card"/>
+    </div>
+
+    <div class="form-container" id="credit-card-form-container">
+        <form action="/payment" method="post">
+            <div class="field-container">
+                <label for="name">Name</label>
+                <input name="name" id="name" maxlength="20" type="text" pattern="[a-zA-Z]+[a-zA-Z ]+" required>
+            </div>
+            <div class="field-container">
+                <label for="cardnumber">Card Number</label>
+                <input autocomplete="off" name="cardnumber" id="cardnumber" type="text" pattern="[0-9 ]*" inputmode="numeric" maxlength="19" minlength="19" placeholder="**** **** **** ****" onkeypress="addSpace(this.id)" required>
+            </div>
+            <div class="field-container">
+                <label for="expirationdate">Expiration date (mm/yyyy)</label>
+                <input autocomplete="off" name="expirationdate" id="expirationdate" type="text" pattern="[0-9/]*" inputmode="numeric" maxlength="7" minlength="7" placeholder="**/****" onkeypress="addSlash(this.id)" required>
+            </div>
+            <div class="field-container">
+                <label for="securitycode">Security Code</label>
+                <input autocomplete="off" name="securitycode" id="securitycode" type="text" pattern="[0-9]*" inputmode="numeric" maxlength="3" minlength="3" placeholder="***" required>
+            </div>
+            <input type="submit" value="Pay" class="btn-primary-custom" style="padding: 0 1rem; margin-top: .75rem;">
+        </form>
+    </div>
+
+    <div id="paypal-img" style="display: none">
+        <img  class="custom-img-payment" src='/static/img/paypal.png' alt="Paypal"/>
+    </div>
+
+    <div class="form-container" id="paypal-form-container" style="display: none">
+        <form action="/payment" method="post">
+            <div class="field-container">
+                <label for="username">Username</label>
+                <input name="username" id="username" maxlength="20" type="text" required>
+            </div>
+            <div class="field-container">
+                <label for="password">Password</label>
+                <input name="password" id="password" type="password" maxlength="20" required>
+            </div>
+            <input type="submit" value="Pay" class="btn-primary-custom" style="padding: 0 1rem; margin-top: .75rem;">
+        </form>
+    </div>
+</div>
+
+<div th:replace="footer.html :: copy"></div>
+</body>
+</html>

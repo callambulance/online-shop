@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+
+    <title>Codecool Shop Checkout</title>
+
+    <script src="https://code.jquery.com/jquery-3.3.1.min.js"
+            integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
+
+    <!--Latest compiled and minified Popper -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js"
+            integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
+
+    <!-- Latest compiled and minified JavaScript -->
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/js/bootstrap.min.js"
+            integrity="sha384-B0UglyR+jN6CkvvICOB2joaf5I4l3gm9GU6Hc1og6Ls7i6U/mkkaduKaBhlAXv9k" crossorigin="anonymous"></script>
+
+    <!-- Latest compiled and minified CSS -->
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css" rel="stylesheet"
+          integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS" crossorigin="anonymous">
+    <!-- End of Bootstrap components -->
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" type="text/css" href="/static/css/checkout.css" />
+    <link rel='shortcut icon' type='image/x-icon' href='/static/img/ccs_favicon.ico' />
+
+
+    <link rel="stylesheet" type="text/css" href="/static/css/custom.css" />
+</head>
+</head>
+<body>
+
+<div id="header" class="main_view" style="height: 8rem!important;">
+    <a href="/"><img id="logo" class="ccs_logo" src="/static/img/ccs_logo.png" style="margin: auto 26%!important; transform: scale(.5)!important;"></a>
+</div>
+
+<div class="container">
+    <div class="progress-container">
+        <h6 th:text="'Shooping Progress'" style="width: 14rem;"></h6>
+        <div class="progress-bar">
+            <div class="progress-checkout"></div>
+        </div>
+    </div>
+    <hr />
+    <p>Please enter your shipping details.</p>
+<form action = "/checkout" method = "POST">
+    <div class="fields fields--2">
+
+        <label class="field">
+            <span class="field__label" for="firstname">First name</span>
+            <input class="field__input" type="text" id="firstname" name="firstname" required />
+        </label>
+        <label class="field">
+            <span class="field__label" for="lastname">Last name</span>
+            <input class="field__input" type="text" id="lastname" name="lastname" required />
+        </label>
+    </div>
+
+    <label class="field">
+        <span class="field__label" for="address">Email:</span>
+        <input class="field__input" type="text" id="email" name="email" required ><br>
+    </label>
+
+    <label class="field">
+        <span class="field__label" for="address">Phone Number:</span>
+        <input class="field__input" type="text" id="phone_number" name="phone_number" required ><br>
+    </label>
+
+    <label class="field">
+        <span class="field__label" for="billing_address">Billing address:</span>
+        <input class="field__input" type="text" id="billing_address" name="billing_address" required />
+    </label>
+
+    <label class="field">
+        <span class="field__label" for="billing_country">Country:</span>
+        <input class="field__input" type="text" id="billing_country"  name="billing_country" required />
+    </label>
+
+    <div class="fields fields--3">
+        <label class="field">
+            <span class="field__label" for="billing_zipcode">Zip code</span>
+            <input class="field__input" type="text" id="billing_zipcode" name="billing_zipcode" required />
+        </label>
+
+        <label class="field">
+            <span class="field__label" for="billing_city">City</span>
+            <input class="field__input" type="text" id="billing_city" name="billing_city" required />
+        </label>
+    </div>
+        <br>
+
+        <label class="field">
+            <span class="field__label" for="shipping_address">Shipping address:</span>
+            <input class="field__input" type="text" id="shipping_address" name="shipping_address" required />
+        </label>
+
+        <label class="field">
+            <span class="field__label" for="shipping_country">Country:</span>
+            <input class="field__input" type="text" id="shipping_country" name="shipping_country" required />
+        </label>
+
+        <div class="fields fields--3">
+            <label class="field">
+                <span class="field__label" for="shipping_zipcode">Zip code</span>
+                <input class="field__input" type="text" id="shipping_zipcode" name="shipping_zipcode" required />
+            </label>
+
+            <label class="field">
+                <span class="field__label" for="shipping_city">City</span>
+                <input class="field__input" type="text" id="shipping_city" name="shipping_city" required />
+            </label>
+        </div>
+    <hr>
+    <input type="submit" class="btn-primary-custom" style="padding: 0 1rem;" value="Go to Payment">
+
+<!--    Submit Modal Confirmation-->
+
+</form>
+</div>
+
+<div th:replace="footer.html :: copy"></div>
+
+</body>
+</html>
+
